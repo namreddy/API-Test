@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API Demo</title>
+</head>
+<body >
+    <button onclick="getData()">Click Here To Get Data on Console</button><br><br>
+    <p id="render"></p>
+    <button onclick="getDataf()">Click Here To Get Data Of 5 Users</button>
+    <script >
+        
+        async function getData(){
+            baseurl='https://dummyapi.io/data/v1/user'
+            fetch(baseurl,{headers:{
+                'app-id':'6234624e7780a444a4d77c08'
+            }})
+            .then(res => res.json())
+            .then(data =>{
+                console.log(data);
+            })
+            .catch(error=> console.log('ERROR')) 
+
+        }
+        async function getDataf(){
+            var idarray=["60d0fe4f5311236168a109cb","60d0fe4f5311236168a109cd","60d0fe4f5311236168a109cc","60d0fe4f5311236168a109cf","60d0fe4f5311236168a109d1"]
+            var baseurl='https://dummyapi.io/data/v1/user/'
+            for(var i=0;i<5;i++){
+                var url=baseurl.concat(idarray[i]);
+                fetch(url,{headers:{
+                    'app-id':'6234624e7780a444a4d77c08'
+                }})
+                .then(res => res.json())
+                .then(data =>{
+                    document.getElementById("render").innerHTML +=
+                    `<br>ID:${data.id} <br> 
+                    Name: ${data.title}.${data.firstName} ${data.lastName}<br> 
+                    Gender: ${data.gender}<br>
+                    Email: ${data.email}<br>
+                    Contact Number:${data.phone}<br>`
+                })
+                .catch(error=> console.log('ERROR'))
+            }
+        }
+
+    </script>
+</body>
+</html>
